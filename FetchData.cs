@@ -8,45 +8,58 @@ namespace SuppliesPriceLister
 {
     public class FetchData
     {
-        //Fetch data from both suppliers and merge
-        public IList<SuppliesPrice> GetSupplies(IList<Humphries> humphrieslist, Megacorp megacorp)
+        /// <summary>
+        /// Fetch data from both suppliers and merge
+        /// </summary>
+        /// <param name="humphrieslist"></param>
+        /// <param name="megacorp"></param>
+        /// <returns></returns>
+        public IEnumerable<SuppliesPrice> GetSupplies(IList<Humphries> humphrieslist, Megacorp megacorp)
         {
+            IList<SuppliesPrice> humphriesSuppliesPrices = GethumphriesSupplies(humphrieslist);
+            IList<SuppliesPrice> megacorpSuppliesPrices = GetmegacorpSupplies(megacorp);
             IList<SuppliesPrice> suppliesPrices = new List<SuppliesPrice>();
-            IList<SuppliesPrice> suppliesPrices2 = new List<SuppliesPrice>();
 
-            var humphries = humphrieslist.Select(p => new { p.ID, p.Description, p.costAUD }).ToList();
-            // var su = (IList<MegacorpSupplies>)megacorp.partners.Select(p => new { p.supplies }).ToList();
-            foreach (var partner in megacorp.partners)
-            {
-                suppliesPrices2 = partner.supplies.Select(p => new SuppliesPrice()
-                {
-                    ID = Convert.ToString(p.ID),
-                    ItemName = p.description,
-                    Price = Convert.ToDecimal(p.priceinAUD)
-                }).ToList();
-            }
-        
-            //var frf = su.Select(p => new { p.ID , p.description, p.priceinAUD }).ToList();
+            var result = humphriesSuppliesPrices.Union(megacorpSuppliesPrices).AsEnumerable().OrderByDescending(x=>x.Price);
 
-
-            suppliesPrices = (from u in humphrieslist
-                              select new SuppliesPrice()
-                              {
-                                  ID = u.ID,
-                                  ItemName = u.Description,
-                                  Price = Convert.ToDecimal(u.costAUD)
-                              }).ToList()
-                              .Union (from s in suppliesPrices2 select s).ToList();
-            //(from u in su
-            // select new SuppliesPrice()
-            // {
-            //     ID = Convert.ToString(u.ID),
-            //     ItemName = u.description,
-            //     Price = Convert.ToDecimal(u.priceinAUD)
-            // }).ToList();
-
-            return suppliesPrices; 
+            return result; 
         }
 
+        /// <summary>
+        /// Fetch GetmegacorpSupplies
+        /// </summary>
+        /// <param name="megacorp"></param>
+        /// <returns></returns>
+        private IList<SuppliesPrice> GetmegacorpSupplies(Megacorp megacorp)
+        {
+            IList<SuppliesPrice> suppliesPrices = new List<SuppliesPrice>();
+            foreach (var partner in megacorp.partners)
+            {
+                suppliesPrices = suppliesPrices.Union(partner.supplies.Select(p => new SuppliesPrice()
+                {
+                    ID = Convert.ToString(p.id),
+                    ItemName = p.description,
+                    Price = Convert.ToDecimal(p.priceinAUD)
+                })).ToList();
+
+            }
+            return (from s in suppliesPrices select s).ToList();
+        }
+
+        /// <summary>
+        /// Fetch GethumphriesSupplies
+        /// </summary>
+        /// <param name="humphrieslist"></param>
+        /// <returns></returns>
+        private IList<SuppliesPrice> GethumphriesSupplies(IList<Humphries> humphrieslist)
+        {
+            return (from u in humphrieslist
+                    select new SuppliesPrice()
+                    {
+                        ID = u.ID,
+                        ItemName = u.Description,
+                        Price = Convert.ToDecimal(u.costAUD)
+                    }).ToList();
+        }
     }
 }

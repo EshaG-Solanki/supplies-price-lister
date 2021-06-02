@@ -21,7 +21,7 @@ namespace SuppliesPriceLister.Model
     }
     public class MegacorpSupplies
     {
-        public Guid ID { get; set; }
+        public int id { get; set; }
         public string description { get; set; }
         public string uom { get; set; }
         public int priceInCents { get; set; }
