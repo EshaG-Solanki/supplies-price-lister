@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuppliesPriceLister.Providers;
+using System;
 
 namespace SuppliesPriceLister
 {
@@ -8,6 +9,7 @@ namespace SuppliesPriceLister
         {
             // Your solution begins here
             LoadAppSettings.LoadParameters();
+            MegacorpProvider megacorpProvider = new MegacorpProvider();
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SuppliesPriceLister.Model
 {
-    class MegacorpSupplies
+    class MegacorpSupplies2
     {
     }
 }
