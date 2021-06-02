@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SuppliesPriceLister.Models
+namespace SuppliesPriceLister.Model
 {
     public class Humphries
     {
