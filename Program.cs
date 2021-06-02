@@ -10,6 +10,7 @@ namespace SuppliesPriceLister
             // Your solution begins here
             LoadAppSettings.LoadParameters();
             MegacorpProvider megacorpProvider = new MegacorpProvider();
+            HumphriesProvider humphriesProvider = new HumphriesProvider();
         }
     }
 }
