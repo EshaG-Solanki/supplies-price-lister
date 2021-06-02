@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace buildxact_supplies.Model
+namespace SuppliesPriceLister.Model
 {
     class MegacorpSupplies
     {

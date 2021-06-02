@@ -7,6 +7,7 @@ namespace SuppliesPriceLister
         static void Main(string[] args)
         {
             // Your solution begins here
+            LoadAppSettings.LoadParameters();
         }
     }
 }
