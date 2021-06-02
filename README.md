@@ -1,3 +1,14 @@
+## Developer comments
+The assignment is complete and is successfully displaying data as requested below. Due to time constraints below intems are left.
+
+Pending items to do:
+1) Null exception and file not found exception checks
+2) Type cast issues
+3) Inline commenting
+4) Test cases to check the data
+
+
+
 ## Requirements
 You've been provided with the shell of a .NET Core console application with two sample inputs.
 
